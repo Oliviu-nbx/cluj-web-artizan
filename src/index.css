@@ -15,11 +15,11 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    /* Professional Blue-Teal Palette */
-    --primary: 200 100% 45%;
+    /* Professional Blue Palette - #06c */
+    --primary: 210 100% 40%;
     --primary-foreground: 0 0% 100%;
-    --primary-glow: 195 100% 65%;
-    --primary-dark: 205 100% 25%;
+    --primary-glow: 210 100% 60%;
+    --primary-dark: 210 100% 20%;
 
     --secondary: 220 15% 95%;
     --secondary-foreground: 222.2 47.4% 11.2%;

@@ -1,29 +1,62 @@
-import { Monitor, Smartphone, Code, Search, Users, Award, Mail, Phone, MapPin, ExternalLink } from "lucide-react";
+import { Monitor, Smartphone, Code, Search, Users, Award, Mail, Phone, MapPin, ExternalLink, FileText, Book, Heart, Cloud, Edit, BarChart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import Particles from "@/components/Particles";
+import GlassIcons from "@/components/GlassIcons";
+import GooeyNav from "@/components/GooeyNav";
 
 const Index = () => {
   const services = [
     {
-      icon: Monitor,
+      icon: <FileText className="w-6 h-6" />,
+      color: "blue",
+      label: "Web Design",
       title: "Web Design",
       description: "Creăm site-uri web moderne și responsive care impresionează vizitatorii și generează conversii."
     },
     {
-      icon: Code,
+      icon: <Code className="w-6 h-6" />,
+      color: "purple",
+      label: "Dezvoltare Web",
       title: "Dezvoltare Web",
       description: "Dezvoltăm aplicații web personalizate folosind cele mai noi tehnologii și standarde de industrie."
     },
     {
-      icon: Smartphone,
+      icon: <Heart className="w-6 h-6" />,
+      color: "red",
+      label: "Design Responsive",
       title: "Design Responsive",
       description: "Site-urile noastre arată perfect pe toate dispozitivele - desktop, tablet și mobil."
     },
     {
-      icon: Search,
+      icon: <Cloud className="w-6 h-6" />,
+      color: "indigo",
+      label: "Optimizare SEO",
       title: "Optimizare SEO",
       description: "Optimizăm site-ul pentru motoarele de căutare pentru a atrage mai mulți clienți potențiali."
+    },
+    {
+      icon: <Edit className="w-6 h-6" />,
+      color: "orange",
+      label: "Consultanță IT",
+      title: "Consultanță IT",
+      description: "Oferim consultanță tehnică pentru alegerea celor mai bune soluții pentru afacerea ta."
+    },
+    {
+      icon: <BarChart className="w-6 h-6" />,
+      color: "green",
+      label: "Analiză Web",
+      title: "Analiză Web",
+      description: "Monitorizăm și analizăm performanța site-ului pentru rezultate optime."
     }
+  ];
+
+  const navItems = [
+    { label: "Acasă", href: "#home" },
+    { label: "Servicii", href: "#services" },
+    { label: "Despre", href: "#about" },
+    { label: "Portofoliu", href: "#portfolio" },
+    { label: "Contact", href: "#contact" }
   ];
 
   const portfolioItems = [
@@ -46,9 +79,22 @@ const Index = () => {
 
   return (
     <div className="min-h-screen">
+      {/* Navigation */}
+      <GooeyNav items={navItems} />
+      
       {/* Hero Section */}
-      <section className="bg-gradient-hero min-h-screen flex items-center justify-center text-center px-4">
-        <div className="max-w-4xl mx-auto">
+      <section id="home" className="bg-gradient-hero min-h-screen flex items-center justify-center text-center px-4 relative">
+        <Particles
+          particleColors={['#ffffff', '#ffffff']}
+          particleCount={200}
+          particleSpread={10}
+          speed={0.1}
+          particleBaseSize={100}
+          moveParticlesOnHover={true}
+          alphaParticles={false}
+          disableRotation={false}
+        />
+        <div className="max-w-4xl mx-auto relative z-10">
           <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
             Web Design & Development
             <span className="block text-accent mt-2">Cluj-Napoca</span>
@@ -79,7 +125,7 @@ const Index = () => {
       </section>
 
       {/* Services Section */}
-      <section className="py-24 bg-background">
+      <section id="services" className="py-24 bg-background">
         <div className="max-w-6xl mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
@@ -90,13 +136,14 @@ const Index = () => {
             </p>
           </div>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="max-w-4xl mx-auto">
+            <GlassIcons items={services} />
+          </div>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-16">
             {services.map((service, index) => (
               <Card key={index} className="card-elegant p-6">
                 <CardContent className="p-0">
-                  <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center mb-4">
-                    <service.icon className="w-6 h-6 text-white" />
-                  </div>
                   <h3 className="text-xl font-semibold mb-3">{service.title}</h3>
                   <p className="text-muted-foreground">{service.description}</p>
                 </CardContent>
@@ -107,7 +154,7 @@ const Index = () => {
       </section>
 
       {/* About Section */}
-      <section className="py-24 bg-muted/30">
+      <section id="about" className="py-24 bg-muted/30">
         <div className="max-w-6xl mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
@@ -180,7 +227,7 @@ const Index = () => {
       </section>
 
       {/* Portfolio Section */}
-      <section className="py-24 bg-background">
+      <section id="portfolio" className="py-24 bg-background">
         <div className="max-w-6xl mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
@@ -212,7 +259,7 @@ const Index = () => {
       </section>
 
       {/* Contact Section */}
-      <section className="py-24 bg-gradient-primary text-white">
+      <section id="contact" className="py-24 bg-gradient-primary text-white">
         <div className="max-w-6xl mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-6">

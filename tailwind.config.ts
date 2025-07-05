@@ -66,9 +66,9 @@ export default {
 				}
 			},
 			boxShadow: {
-				'elegant': '0 10px 40px -10px hsl(200 100% 45% / 0.2)',
-				'card': '0 4px 20px -2px hsl(200 100% 45% / 0.1)',
-				'glow': '0 0 40px hsl(195 100% 65% / 0.3)'
+				'elegant': '0 10px 40px -10px hsl(210 100% 40% / 0.2)',
+				'card': '0 4px 20px -2px hsl(210 100% 40% / 0.1)',
+				'glow': '0 0 40px hsl(210 100% 60% / 0.3)'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
