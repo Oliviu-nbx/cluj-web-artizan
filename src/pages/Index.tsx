@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import Particles from "@/components/Particles";
 import GlassIcons from "@/components/GlassIcons";
 import GooeyNav from "@/components/GooeyNav";
+import ChatAssistant from "@/components/ChatAssistant";
 import { motion } from "framer-motion";
 import "../styles/futuristic.css";
 
@@ -95,9 +96,9 @@ const Index = () => {
   ];
 
   return (
-    <div className="min-h-screen overflow-hidden bg-white">
+    <div className="min-h-screen bg-white">
       {/* Navigation */}
-      <GooeyNav items={navItems} />
+      <GooeyNav items={navItems} enableScrollSync={true} />
       
       {/* Hero Section - Simplified and User-Friendly */}
       <section 
@@ -2056,6 +2057,9 @@ const Index = () => {
           </motion.div>
         </div>
       </motion.footer>
+      
+      {/* Chat Assistant */}
+      <ChatAssistant />
     </div>
   );
 };

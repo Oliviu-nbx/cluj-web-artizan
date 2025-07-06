@@ -15,6 +15,7 @@ interface GooeyNavProps {
   timeVariance?: number;
   colors?: number[];
   initialActiveIndex?: number;
+  enableScrollSync?: boolean;
 }
 
 const GooeyNav = ({
@@ -26,11 +27,13 @@ const GooeyNav = ({
   timeVariance = 300,
   colors = [1, 2, 3, 1, 2, 3, 1, 4],
   initialActiveIndex = 0,
+  enableScrollSync = true,
 }: GooeyNavProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const navRef = useRef<HTMLUListElement>(null);
   const filterRef = useRef<HTMLSpanElement>(null);
   const textRef = useRef<HTMLSpanElement>(null);
+  const [isScrolling, setIsScrolling] = useState(false);
   const [activeIndex, setActiveIndex] = useState(initialActiveIndex);
 
   const noise = (n = 1) => n / 2 - Math.random() * n;
@@ -124,6 +127,7 @@ const GooeyNav = ({
     if (activeIndex === index) return;
 
     e.preventDefault();
+    setIsScrolling(true);
     setActiveIndex(index);
     updateEffectPosition(liEl);
 
@@ -132,10 +136,19 @@ const GooeyNav = ({
     if (href.startsWith('#')) {
       const targetElement = document.querySelector(href);
       if (targetElement) {
-        targetElement.scrollIntoView({ 
-          behavior: 'smooth',
-          block: 'start'
+        const navHeight = 80; // Approximate navigation height
+        const element = targetElement as HTMLElement;
+        const targetPosition = element.offsetTop - navHeight;
+        
+        window.scrollTo({
+          top: targetPosition,
+          behavior: 'smooth'
         });
+        
+        // Reset scrolling state after scroll completes
+        setTimeout(() => {
+          setIsScrolling(false);
+        }, 1000);
       }
     }
 
@@ -190,6 +203,104 @@ const GooeyNav = ({
     resizeObserver.observe(containerRef.current);
     return () => resizeObserver.disconnect();
   }, [activeIndex]);
+
+  // Scroll synchronization effect
+  useEffect(() => {
+    if (!enableScrollSync) return;
+
+    const sections = items.map(item => document.querySelector(item.href));
+    const observerOptions = {
+      root: null,
+      rootMargin: '-10% 0px -90% 0px',
+      threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5]
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      if (isScrolling) return; // Don't update during programmatic scrolling
+      
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const sectionId = `#${entry.target.id}`;
+          const sectionIndex = items.findIndex(item => item.href === sectionId);
+          if (sectionIndex !== -1 && sectionIndex !== activeIndex) {
+            setActiveIndex(sectionIndex);
+          }
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach(section => {
+      if (section) {
+        observer.observe(section);
+      }
+    });
+
+    return () => {
+      sections.forEach(section => {
+        if (section) {
+          observer.unobserve(section);
+        }
+      });
+    };
+  }, [items, activeIndex, enableScrollSync, isScrolling]);
+
+  // Additional scroll event listener as backup
+  useEffect(() => {
+    if (!enableScrollSync) return;
+
+    const handleScroll = () => {
+      if (isScrolling) return; // Don't update during programmatic scrolling
+      
+      const scrollY = window.scrollY;
+      const sections = items.map(item => {
+        const element = document.querySelector(item.href);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          return {
+            id: item.href,
+            top: rect.top + scrollY,
+            height: rect.height
+          };
+        }
+        return null;
+      }).filter(Boolean);
+
+      // Find the section that's most in view
+      const viewportCenter = scrollY + window.innerHeight / 2;
+      let currentSection = 0;
+      
+      for (let i = 0; i < sections.length; i++) {
+        const section = sections[i];
+        if (section && viewportCenter >= section.top && viewportCenter < section.top + section.height) {
+          currentSection = i;
+          break;
+        }
+        if (section && viewportCenter >= section.top) {
+          currentSection = i;
+        }
+      }
+
+      if (currentSection !== activeIndex) {
+        setActiveIndex(currentSection);
+      }
+    };
+
+    const throttledHandleScroll = (() => {
+      let ticking = false;
+      return () => {
+        if (!ticking) {
+          requestAnimationFrame(() => {
+            handleScroll();
+            ticking = false;
+          });
+          ticking = true;
+        }
+      };
+    })();
+
+    window.addEventListener('scroll', throttledHandleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', throttledHandleScroll);
+  }, [items, activeIndex, enableScrollSync, isScrolling]);
 
   return (
     <div className="gooey-nav-container" ref={containerRef}>
