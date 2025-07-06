@@ -1534,7 +1534,38 @@ const Index = () => {
           </motion.div>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {portfolioItems.map((item, index) => (
+            {[
+              { 
+                title: "TechFlow Solutions", 
+                category: "Platform SaaS",
+                description: "Platformă inovatoare pentru automatizarea proceselor business cu dashboard complex și integrări API avansate"
+              },
+              { 
+                title: "GreenLeaf Organic", 
+                category: "E-commerce",
+                description: "Magazin online pentru produse organice cu sistem de abonamente și plăți recurente integrate"
+              },
+              { 
+                title: "UrbanSpace Architecture", 
+                category: "Website Profesional",
+                description: "Website interactiv cu galerie 3D pentru proiecte arhitecturale și vizualizări immersive"
+              },
+              { 
+                title: "CloudSync Analytics", 
+                category: "Dashboard B2B",
+                description: "Dashboard complex pentru analiza datelor și raportare cu vizualizări interactive avansate"
+              },
+              { 
+                title: "WellnessPro Clinic", 
+                category: "Healthcare System",
+                description: "Sistem integrat pentru programări și managementul pacienților cu funcții medicale avansate"
+              },
+              { 
+                title: "EduStream Academy", 
+                category: "Platform E-learning",
+                description: "Platformă e-learning cu streaming live și certificate digitale pentru cursuri online complete"
+              }
+            ].map((item, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 50 }}
@@ -1572,28 +1603,24 @@ const Index = () => {
                     }}
                   />
                   
-                  {/* Image Section */}
-                  <div className="aspect-video relative overflow-hidden">
-                    <motion.div 
-                      className="absolute inset-0 bg-gradient-to-br from-blue-600/30 via-orange-600/30 to-blue-700/30 flex items-center justify-center"
-                      whileHover={{ scale: 1.1 }}
-                      transition={{ duration: 0.5 }}
-                    >
-                      <motion.div
-                        className="text-white/60"
-                        whileHover={{ 
-                          rotate: 360,
-                          scale: 1.2
-                        }}
-                        transition={{ duration: 0.8 }}
-                      >
-                        <Monitor className="w-20 h-20" />
-                      </motion.div>
-                    </motion.div>
-                    
-                    {/* Tech Grid Overlay */}
-                    <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:20px_20px] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  </div>
+                     <div className="aspect-video relative overflow-hidden">
+                       <img 
+                         src={`https://images.unsplash.com/photo-${
+                           index === 0 ? '1460925895917-afdab827c52f' :
+                           index === 1 ? '1472396961693-142e6e269027' :
+                           index === 2 ? '1488972685288-c3fd157d7c7a' :
+                           index === 3 ? '1551038247-3d9af20df552' :
+                           index === 4 ? '1581091226825-a6a2a5aee158' :
+                           '1461749280684-dccba630e2f6'
+                         }?w=400&h=300&fit=crop`}
+                         alt={item.title}
+                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                       />
+                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                       
+                       {/* Tech Grid Overlay */}
+                       <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:20px_20px] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                     </div>
                   
                   <CardContent className="p-8 relative z-10">
                     <motion.div
@@ -2001,7 +2028,7 @@ const Index = () => {
                 backgroundSize: '200% 200%',
               }}
             >
-              WebDesign Cluj
+               PixelCraft Studios
             </motion.h3>
             <motion.p 
               className="text-lg text-gray-300 max-w-2xl mx-auto"
@@ -2027,7 +2054,7 @@ const Index = () => {
                 className="text-gray-400 text-center md:text-left"
                 whileHover={{ color: '#ffffff' }}
               >
-                © 2025 WebDesign Cluj. Toate drepturile rezervate.
+                © 2025 PixelCraft Studios. Toate drepturile rezervate.
               </motion.p>
               
               <motion.div 
