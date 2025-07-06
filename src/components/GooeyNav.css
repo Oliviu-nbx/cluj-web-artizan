@@ -42,7 +42,7 @@
 
 .gooey-nav-container nav ul li:hover a,
 .gooey-nav-container nav ul li.active a {
-  color: white;
+  color: #3b82f6;
 }
 
 .gooey-nav-container .effect {
